@@ -1,0 +1,77 @@
+Installing Apache, PHP, MySql
+#sudo apt-get install apache2
+#sudo apt-get install php php-curl php-gd php-mbstring php-mysql php-zip php-json php-xml php-fpm php-gettext lipapache2-mod-php
+#sudo apt-get install mysql-server mysql-client
+
+Securing MySql
+#sudo mysql_secure_installation
+
+Installing PHPMyAdmin
+#sudo apt-get install phpmyadmin
+#sudo nano /etc/apache2/apache2.conf --> open this file, add the following line at the end of the file.
+Include /etc/phpmyadmin/apache.conf
+
+Changing PHPMyAdmin URL
+#sudo nano /etc/phpmyadmin/apache.conf --> edit the following line to change the phpmyadmin url.
+Alias /@@@phpmyadmin /usr/share/phpmyadmin
+#sudo /etc/init.d/apache2 restart
+
+Setting Root User Password For PHPMyAdmin
+#mysql -u root -p
+#SHOW VARIABLES LIKE 'validate_password%';
+#SET GLOBAL validate_password_policy = 0;
+#ALTER USER 'root'@'localhost' IDENTIFIED WITH mysql_native_password BY 'your_new_pasword';
+
+Installing Free SSL Certificate
+#sudo add-apt-repository ppa:certbot/certbot
+#sudo apt-get install python-certbot-apache
+#sudo certbot --apache -d catzby.com
+
+Configuring Htaccess
+#sudo a2enmod rewrite
+#sudo nano /etc/apache2/sites-available/default-ssl.conf --> open this file, add the following lines at the end of the file.
+<Directory /var/www/html>
+Options Indexes FollowSymLinks MultiViews
+AllowOverride All
+Order allow,deny
+allow from all
+</Directory>
+#sudo nano /etc/apache2/apache2.conf --> open this file, add the following lines at the end of the file.
+<Directory /var/www/html>
+Options Indexes FollowSymLinks MultiViews
+AllowOverride All
+Order allow,deny
+allow from all
+</Directory>
+#cd /var/www/html
+#sudo apt-get install unzip
+#unzip backup.zip
+#sudo rm backup.zip
+
+Removing "STRICT_TRANS_TABLES"
+#mysql -u root -p
+#SHOW VARIABLES LIKE 'sql_mode';
+#sudo nano /etc/mysql/conf.d/strict_mode.cnf --> open this file, add the following lines in it.
+[mysqld]
+sql_mode=IGNORE_SPACE,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION
+#sudo service mysql restart
+
+Updating "upload_max_filesize"
+#sudo nano /etc/php/7.2/apache2/php.ini
+
+Giving Access to "www-data"
+#nano /etc/passwd
+#ls -ld /var/www/html/media
+#sudo chown -R www-data:www-data /var/www/html/media
+
+Remvoving a PHPMyAdmin Error
+#sudo sed -i "s/|\s*\((count(\$analyzed_sql_results\['select_expr'\]\)/| (\1)/g" /usr/share/phpmyadmin/libraries/sql.lib.php
+
+Setting up FFMPEG
+#sudo apt-get install ffmpeg
+#ffmpeg -version
+#which ffmpeg
+#which ffprobe
+#ffmpeg -i /var/www/html/media/mj.gif /var/www/html/media/mj.mp4
+
+

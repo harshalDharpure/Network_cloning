@@ -1,0 +1,358 @@
+<?php
+if (array_search(__FILE__, get_included_files()) === 0) {
+header("Location: https://catzby.com");
+}
+//error_reporting(0);
+try {
+$con = new PDO('mysql:host=localhost;dbname=database-name', 'username', 'password');
+}
+catch(PDOException $jusluv) {
+header("Location: https://catzby.com/@sErVeRdOwN");
+die;
+}
+
+require ("fi.php");
+
+$ipaddress = $_SERVER['REMOTE_ADDR'];
+$useragent  = $_SERVER['HTTP_USER_AGENT'];
+
+
+//numbers to K,M,B
+function nfs( $n, $precision = 1 ) {
+if ($n < 900) {
+// 0 - 900
+$n_format = number_format($n, $precision);
+$suffix = '';
+} else if ($n < 900000) {
+// 0.9k-850k
+$n_format = number_format($n / 1000, $precision);
+$suffix = 'K';
+} else if ($n < 900000000) {
+// 0.9m-850m
+$n_format = number_format($n / 1000000, $precision);
+$suffix = 'M';
+} else if ($n < 900000000000) {
+// 0.9b-850b
+$n_format = number_format($n / 1000000000, $precision);
+$suffix = 'B';
+} else {
+// 0.9t+
+$n_format = number_format($n / 1000000000000, $precision);
+$suffix = 'T';
+}
+// Remove unecessary zeroes after decimal. "1.0" -> "1"; "1.00" -> "1"
+// Intentionally does not affect partials, eg "1.50" -> "1.50"
+if ( $precision > 0 ) {
+$dotzero = '.' . str_repeat( '0', $precision );
+$n_format = str_replace( $dotzero, '', $n_format );
+}
+return $n_format . $suffix;
+}
+
+//timeago function
+function tago($timestamp, $precision = 2) {
+$time = time() - $timestamp; 
+$a = array('day' => 86400, 'hour' => 3600, 'min' => 60, 'sec' => 1); 
+$i = 0; 
+foreach($a as $k => $v) { 
+$$k = floor($time/$v); 
+if ($$k) $i++; 
+$time = $i >= $precision ? 0 : $time - $$k * $v; 
+$s = $$k > 1 ? 's' : ''; 
+$$k = $$k ? $$k.' '.$k.$s.' ' : ''; 
+@$result .= $$k; 
+}
+return $result ? $result.'ago' : 'A sec ago'; 
+}
+
+
+function meowtext($text) {
+$text = preg_replace('/(?:\s*\n\s*){3,}/s', "\n\n", $text);
+$text = nl2br(htmlspecialchars($text));
+$text = str_replace(array('http://','https://'), '', $text);
+$url_regex = ("/(?i)\b((?:https?:(?:\/{1,3}|[a-z0-9%])|[a-z0-9.\-]+[.](?:com|net|org|life|download|host|edu|gov|mil|aero|asia|biz|cat|coop|club|info|int|jobs|mobi|museum|name|post|pro|tel|travel|social|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\/)(?:[^\s()<>{}\[\]]+|\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\))+(?:\([^\s()]*?\([^\s()]+\)[^\s()]*?\)|\([^\s]+?\)|[^\s`!()\[\]{};:'\".,<>?«»“”‘’])|(?:(?<!@)[a-z0-9]+(?:[.\-][a-z0-9]+)*[.](?:com|net|org|edu|gov|mil|aero|asia|biz|cat|coop|info|int|jobs|mobi|museum|name|post|pro|tel|travel|social|ac|ad|ae|af|ag|ai|al|am|an|ao|aq|ar|as|at|au|aw|ax|az|ba|bb|bd|be|bf|bg|bh|bi|bj|bm|bn|bo|br|bs|bt|bv|bw|by|bz|ca|cc|cd|cf|cg|ch|ci|ck|cl|cm|cn|co|cr|cs|cu|cv|cx|cy|cz|dd|de|dj|dk|dm|do|dz|ec|ee|eg|eh|er|es|et|eu|fi|fj|fk|fm|fo|fr|ga|gb|gd|ge|gf|gg|gh|gi|gl|gm|gn|gp|gq|gr|gs|gt|gu|gw|gy|hk|hm|hn|hr|ht|hu|id|ie|il|im|in|io|iq|ir|is|it|je|jm|jo|jp|ke|kg|kh|ki|km|kn|kp|kr|kw|ky|kz|la|lb|lc|li|lk|lr|ls|lt|lu|lv|ly|ma|mc|md|me|mg|mh|mk|ml|mm|mn|mo|mp|mq|mr|ms|mt|mu|mv|mw|mx|my|mz|na|nc|ne|nf|ng|ni|nl|no|np|nr|nu|nz|om|pa|pe|pf|pg|ph|pk|pl|pm|pn|pr|ps|pt|pw|py|qa|re|ro|rs|ru|rw|sa|sb|sc|sd|se|sg|sh|si|sj|Ja|sk|sl|sm|sn|so|sr|ss|st|su|sv|sx|sy|sz|tc|td|tf|tg|th|tj|tk|tl|tm|tn|to|tp|tr|tt|tv|tw|tz|ua|ug|uk|us|uy|uz|va|vc|ve|vg|vi|vn|vu|wf|ws|ye|yt|yu|za|zm|zw)\b\/?(?!@)))/");
+$text = preg_replace_callback($url_regex, function($matches){
+return '<a href="http://'.htmlspecialchars_decode($matches[0]).'" rel="nofollow" target="_blank">'.$matches[0]."</a>";
+}, $text);
+$text = preg_replace('/(?<!\S)#(([^\x00-\x7F]|\w)+)/u', '<a href="@hashtag_$1" rel="nofollow" onclick="return false;">
+<span style="padding:0;margin:0;" onclick="load(\'#loadmeows$1\')">#$1</span></a>
+<p id="loadmeows$1" style="display:none;">?load=loadmeows&meowfor=hashtag&hashtag=$1</p>', $text);
+$text = preg_replace('/(?<!\S)@([0-9a-zA-Z_]+)/', '<a href="$1" rel="nofollow" onclick="return false;">
+<span style="padding:0;margin:0;" onclick="profilecall(\'#profilecall_$1\')">@$1</span></a>
+<p id="profilecall_$1" style="display:none;">?profilepageuser=$1&full=yes</p>', $text);
+return $text;
+}
+
+require('@ffmpeg/autoload.php');
+
+extract($_POST);
+
+if($_SERVER['HTTP_X_REQUESTED_WITH'] != "XMLHttpRequest") {
+header("Location: https://catzby.com");
+die();
+}
+
+$user_exists = $con->prepare("SELECT username FROM reg_users WHERE username = ?");
+$user_exists->execute([$username]);
+$user_exists = $user_exists->fetchColumn();
+
+if (preg_match('/^.{3,21}$/', trim($full_name)) == false) {
+}
+if (filter_var($regemail, FILTER_VALIDATE_EMAIL) == false) {
+}
+if (preg_match('/^[A-Za-z0-9_]{3,21}$/', $username) == false) {
+}
+if (preg_match('/^.{8,128}$/', $regpassword) == false) {
+}
+$regpassword = password_hash($regpassword, PASSWORD_ARGON2I);
+//$regpassword = md5($regpassword);
+$email_code = md5($regemail);
+$sql = "INSERT INTO reg_users (full_name, email, username, 
+password, email_code, ip, useragent) 
+VALUES (?, ?, ?, ?, ?, ?, ?)";
+$con->prepare($sql)->execute([$full_name, $regemail, $username, 
+$regpassword, $email_code, $ipaddress, $useragent]);
+$user_id = $con->prepare("SELECT user_id FROM reg_users WHERE username = ? 
+AND email_code = ? AND email = ?");
+$user_id->execute([$username, $email_code, $regemail]);
+$user_id = $user_id->fetchColumn();
+$response['full_name'] = $full_name;
+
+$row = $con->prepare("SELECT user_id, deactive, username, full_name, email, suspend, password FROM reg_users WHERE username = ? OR email = ?");
+$row->execute([$regemail, $regemail]);
+$row = $row->fetch(PDO::FETCH_ASSOC);
+$user_id = $row['user_id'];
+
+if (password_verify($regpassword, $password) == true) {
+}
+
+$deactive = 0;
+$sql = "UPDATE reg_users SET deactive = ? WHERE username = ? AND password = ?";
+$con->prepare($sql)->execute([$deactive, $username, $password]);
+
+function randompassword( $length ) {
+$chars = "0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ)(*&^%$#@!";
+return substr(str_shuffle($chars),0,$length);
+}
+$newpassword = randompassword(8);
+$newpassword_hash = password_hash($newpassword, PASSWORD_ARGON2I);
+
+$whatisit = 'FOLLOW';
+$followings = $con->prepare("SELECT count(*) FROM meows 
+WHERE whatisit = ? AND followerorblocker = ?");
+$followings->execute([$whatisit, $user_id]);
+$followings = $followings->fetchColumn();
+
+$whatisit = 'FOLLOW';
+$del = $con->prepare("DELETE FROM meows WHERE whatisit = ? AND 
+followerorblocker = ? AND followedorblocked = ?");
+$del->execute([$whatisit, $user_id, $forb_id]);
+$del = $del->rowCount();
+
+
+//sendin pushnoti for tagging
+//getting tagged usernames from meowtext into taggedusers variable
+preg_match_all('/(?<!\S)@([0-9a-zA-Z_]+)/', $postmeow, $taggedusers);
+//we will use $taggedusers[1] 
+//because the returned array is multi-dimensional
+//collecting tokens
+$usernames  = str_repeat('?,', count($taggedusers[1]) - 1) . '?';
+$raw = $con->prepare("SELECT * FROM pushnoti LEFT JOIN reg_users 
+ON reg_users.user_id = pushnoti.user_id WHERE reg_users.username IN ($usernames)");
+$raw->execute($taggedusers[1]);
+$tokens = array();
+while ($data = $raw->fetch()) {
+$tokens[] = $data['token'];
+}
+$header = [
+'Authorization: Key=YOUR-FIREBASE-PRIVATE-KEY',
+'Content-Type: application/json'
+];
+$msg = [
+'title' => 'Tagged',
+'body' => ''.$postmeow.'',
+'icon' => '/graphics/icon_180x180.png',
+'badge' => '/graphics/icon_180x180.png',
+'click_action' => 'https://catzby.com/@notifications'
+];
+$payload = [
+'registration_ids'	=> $tokens,
+'data'				=> $msg
+];
+$payload = json_encode($payload);
+if (!empty($tokens)) {
+$curl = curl_init();
+curl_setopt_array($curl, array(
+CURLOPT_URL => "https://fcm.googleapis.com/fcm/send",
+CURLOPT_RETURNTRANSFER => true,
+CURLOPT_CUSTOMREQUEST => "POST",
+CURLOPT_POSTFIELDS => $payload,
+CURLOPT_HTTPHEADER => $header
+));
+$rezponse = curl_exec($curl);
+$err = curl_error($curl);
+curl_close($curl);
+}
+//sendin pushnoti for tagging
+
+//function to check animated gif
+function is_ani($filename) {
+if(!($fh = @fopen($filename, 'rb')))
+return false;
+$count = 0;
+while(!feof($fh) && $count < 2) {
+$chunk = fread($fh, 1024 * 100); //read 100kb at a time
+$count += preg_match_all('#\x00\x21\xF9\x04.{4}\x00[\x2C\x21]#s', $chunk, $matches);
+}
+fclose($fh);
+return $count > 1;
+}
+//function to check animated gif
+
+//function of converting the image
+function create_img($img) {
+// It gets the size of the image
+list( $width,$height ) = getimagesize($img);
+//max new width
+define('MAX_WIDTH', 600);
+//max new height
+define('MAX_HEIGHT', 1200);
+//creating new width & height of an image maintaining the image aspect ratio
+$source_aspect_ratio = $width / $height;
+$thumbnail_aspect_ratio = MAX_WIDTH / MAX_HEIGHT;
+if ($width <= MAX_WIDTH && $height <= MAX_HEIGHT) {
+$newwidth = $width;
+$newheight = $height;
+} elseif ($thumbnail_aspect_ratio > $source_aspect_ratio) {
+$newwidth = (int) (MAX_HEIGHT * $source_aspect_ratio);
+$newheight = MAX_HEIGHT;
+} else {
+$newwidth = MAX_WIDTH;
+$newheight = (int) (MAX_WIDTH / $source_aspect_ratio);
+}
+//creating a new true color image (the first step of editing upload)
+$thumb = imagecreatetruecolor( $newwidth, $newheight );
+$type = mime_content_type($img);
+//creating image from png
+if ($type == 'image/png') {
+$source = imagecreatefrompng( $img );
+}
+//creating image from jpg
+if ($type == 'image/jpeg') {
+$source = imagecreatefromjpeg( $img );
+}
+//creating image from gif
+if ($type == 'image/gif') {
+$source = imagecreatefromgif( $img );
+}
+//resizing of the uploaded image
+imagecopyresampled($thumb, $source, 0, 0, 0, 0, $newwidth, $newheight, $width, $height);
+//imagecolorallocate & imagefilledrectangle fill the transparent color into white
+$white = imagecolorallocate($source,  255, 255, 255);
+imagefilledrectangle($source, 0, 0, $newwidth, $newheight, $white);
+//creating a new jpg image with a quality of 80
+imagejpeg($thumb, $img, 80); 
+}
+//function of converting the image
+
+$ffmpeg = FFMpeg\FFMpeg::create(array(
+'ffmpeg.binaries'  => '/usr/bin/ffmpeg',
+'ffprobe.binaries' => '/usr/bin/ffprobe',
+));
+$video = $ffmpeg->open($desti_dir.$newname);
+$format = new \FFMpeg\Format\Video\X264('libvo_aacenc', 'libx264');
+$format->setAudioCodec("aac");
+$format->setAdditionalParameters(array('-profile:v', 'baseline', '-pix_fmt', 
+'yuv420p', '-vf', 'scale=600:-2'));
+$format->setKiloBitrate(350)->setAudioChannels(2)->setAudioKiloBitrate(64);
+$video
+->frame(FFMpeg\Coordinate\TimeCode::fromSeconds(1))
+->save($desti_dir.$newnamejpg);
+$video
+->save($format, $desti_dir.$newnamemp4);
+
+$uri = 'https://catzby.com/'.$media_name.'.jpg';
+$image = new FastImage($uri);
+list($width, $height) = $image->getSize();
+
+$hashtag = substr($hashtag,0,99);
+$hashtag1 = '(^|[[:space:]])#'.$hashtag.'([[:space:]]|$)';
+
+$time = date("Y-m-d H:i:s", time());
+
+$limit = 0;
+$con->setAttribute( PDO::ATTR_EMULATE_PREPARES, false );
+$row = $con->prepare("SELECT * FROM reg_users WHERE deactive = ? 
+AND suspend = ? ORDER BY reg_time DESC LIMIT ?, ?");
+$row->execute([0, 0, $limit, 50]);
+
+while ($data = $row->fetch()) {
+}
+
+tago(date(strtotime($data['ts'])), 1);
+
+date('Y');
+
+require 'mailer/src/Exception.php';
+require 'mailer/src/PHPMailer.php';
+require 'mailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+use PHPMailer\PHPMailer\SMTP;
+
+
+if ($reason == 'signupverify') {
+
+$body .= "<html dir='ltr' lang='en'><body>";
+$body .= "<table width='100%' bgcolor='#fff' cellpadding='0' cellspacing='0' border='0'>";
+$body .= "<tr><td>";
+$body .= "<table align='center' width='100%' border='0' cellpadding='0' cellspacing='0' 
+style='max-width:600px; background-color:#fff; font-family:Verdana, Geneva, sans-serif;'>";
+$body .= "<thead><img src='https://catzby.com/graphics/icon_180x180.png'  style='display:block;margin:auto;' /><br /></thead>";
+$body .= "<tbody><tr>
+<td colspan='4' style='padding:15px;'>
+<p style='font-size:25px;'>Hello ".$full_name.",<br /><br />Open this <a href='https://catzby.com/@___vEriFyeR?verify=".$email_code."&for=".$user_id."'>page</a> to complete the verification of your email. Enjoy using Catzby :)<br /><br /><br />Regards,<br />Team Catzby
+</p></td></tr></tbody>";
+$body .= "</table>";
+$body .= "</td></tr>";
+$body .= "</table>";
+$body .= "</body></html>";
+
+
+$altbody .= "Hello $full_name,\r\n\r\nWelcome to Catzby.\r\n\r\n";
+$altbody .= "Open this link: https://catzby.com/@___vEriFyeR?verify=".$email_code."&for=".$user_id." ";
+$altbody .= "to complete the verification of your email. ";
+$altbody .= "Enjoy using Catzby :)\r\n\r\n\r\nRegards,\r\nTeam Catzby";
+
+$subject = 'Email Verification';
+
+$mail = new PHPMailer(true);
+//Server settings
+$mail->SMTPDebug = SMTP::DEBUG_SERVER;
+$mail->isSMTP();
+$mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+$mail->Port       = 587;
+$mail->SMTPAuth   = true; 
+
+$mail->Host       = 'mail.catzby.com'; 
+$mail->SMTPOptions = array(
+'ssl' => array(
+'verify_peer' => false,
+'verify_peer_name' => false,
+'allow_self_signed' => true
+));
+ 
+$mail->Username   = 'sending-email-address'; 
+$mail->Password   = 'sending-email-password'; 
+//Recipients
+$mail->setFrom('support@catzby.com', 'Catzby Support');
+$mail->addAddress("$regemail");
+// Content
+$mail->isHTML(true);
+$mail->Subject = "$subject";
+$mail->Body    = "$body";
+$mail->AltBody = "$altbody";
+$mail->send();
+
+}

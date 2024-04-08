@@ -1,0 +1,197 @@
+##hiding htaccess from public view
+<Files .htaccess>
+order allow,deny
+deny from all
+</Files>
+
+##forwarding traffic to maintenance page
+RewriteCond %{REQUEST_URI} !/$ [NC]
+RewriteRule .* / [R=302,L]
+
+##restricting direct ip access
+RewriteEngine on
+RewriteCond %{HTTP_HOST} !(?:www\.)?catzby.com
+RewriteRule (.*) https://catzby.com/@403 [R=301,L]
+
+##redirecting traffic to non-www
+RewriteEngine on
+RewriteCond %{HTTP_HOST} ^www\.(.*)$ [NC]
+RewriteRule ^(.*)$ http://%1%{REQUEST_URI} [R=301,QSA,NC,L]
+
+##redirecting to https
+RewriteEngine On
+RewriteCond %{HTTPS} off
+RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+
+##this will allow the browsers to block any requests containing malicious scripts
+Header set X-XSS-Protection "1; mode=block"
+
+##this will allow the browsers to always connect through https
+Header set Strict-Transport-Security "max-age=31536000; includeSubDomains; preload" env=HTTPS
+
+##this will allow the browsers to protect against MIME type sniffing exploits
+Header set X-Content-Type-Options nosniff
+
+##this will allow the browsers to block any content requested from external locations
+Header set X-Frame-Options DENY
+
+##this will allow the browsers to cache all the files for 31536000 seconds 
+Header set Cache-Control "max-age=31536000, public"
+
+##prevent folders without index
+Options -Indexes
+
+##redirect to error pages
+ErrorDocument 404 /@404
+ErrorDocument 403 /@403
+ErrorDocument 400 /@400
+
+##giving a unique name to 404.php
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@404 /404.php [L]
+
+##giving a unique name to 403.php
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@403 /403.php [L]
+
+##giving a unique name to 400.php
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@400 /400.php [L]
+
+##forwarding direct access to mailer/@ffmpeg dirs to 403
+Redirect /mailer /@403
+Redirect /@ffmpeg /@403
+
+##giving a unique name to jserror.php
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@JavascriptError /jserror.php [L]
+
+##giving a unique name to sdown.php
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@sErVeRdOwN /sdown.php [L]
+
+##first page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@RenDer@@@ /home_render.php [L]
+
+##sign up page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@signup /signup.php [L]
+
+##sign in page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@signin /signin.php [L]
+
+##forgotpassword page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@forgotpassword /forgotpassword.php [L]
+
+##home page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@home /home.php [L]
+
+##notifications page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@notifications /notifications.php [L]
+
+##settings page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@settings /settings.php [L]
+
+##discover page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@discover /discover.php [L]
+
+##followings page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@followings_([0-9]+)$ /followings.php?fuser=$1 [L]
+
+##followers page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@followers_([0-9]+)$ /followers.php?fuser=$1 [L]
+
+##meowlikes page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@meowlikes_([0-9]+)$ /likes.php?meowid=$1 [L]
+
+##meowforward page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@meowforward_([0-9]+)$ /forward.php?meowid=$1 [L]
+
+##meowsingle page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@meow_([0-9]+)$ /meow.php?meowid=$1 [L]
+
+##hashtag page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@hashtag_(.*)$ /hashtag.php?hashtag=$1 [L]
+
+##search page
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@search_(.*)$ /search.php?search=$1 [L]
+
+##for signing up process
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@___sIgNiNuPpPpp /_signupproc.php [L]
+
+##verifyer
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@___vEriFyeR /z_verifyemail.php [L]
+
+##sending emails
+RewriteEngine On
+RewriteCond %(REQUEST_FILENAME) !-f
+RewriteCond %(REQUEST_FILENAME) !-d
+RewriteRule ^@emAiLLLinGG@@@@ /emailll_sending.php [L]
+
+##profile page
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /profile.php?username=$1 [L]
+
+

@@ -1,0 +1,7 @@
+Install Node.js from nodejs.org and open it and perform the following commands.
+
+To install the uglifyjs..
+C:\ npm install uglify-js -g
+
+To uglify the js file..
+C:\ uglifyjs C:\xampp\htdocs\catzby\js\jsprod_.js -o C:\xampp\htdocs\catzby\js\jsprod.js

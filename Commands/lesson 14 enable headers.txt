@@ -1,0 +1,3 @@
+Enable Header
+##sudo a2enmod headers
+##sudo service apache2 restart

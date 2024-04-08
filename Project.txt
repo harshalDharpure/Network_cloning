@@ -1,0 +1,19 @@
+Create a project which includes:
+-Think about a social network idea.
+-Register the domain name.
+-Design the layout of the social network.
+-Create a sign up, sign in and forgot password pages.
+-Create a profile page.
+-Profile picture upload option.
+-Posting images and videos option.
+-Tagging users on posts.
+-Adding hashtags to the posts.
+-Following users.
+-Create a feed where you can view the posts of the followings.
+-Liking posts.
+-Setting up push notifications for liking, following and tagging users.
+-Make app to be installed on devices.
+-Writing privacy policy, terms of use and cookies.
+
+The file contains all the libraries, javascript, css, manifest and service workers to develop the app.
+It also includes some important php functions and patterns.

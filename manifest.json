@@ -1,0 +1,19 @@
+{
+"//_comment1": "Some browsers will use this to enable push notifications.",
+"//_comment2": "It is the same for all projects, this is not your project's sender ID",
+"gcm_sender_id": "103953800507",
+"name": "Catzby",
+"short_name": "Catzby",
+"description": "Become Catzby. Post Meows, connect with other Catzbies & grow your online social network.",
+"icons": [
+{ "src": "graphics/icon_c_192x192.png", "sizes": "192x192", "type": "image/png" },
+{ "src": "graphics/icon_c_512x512.png", "sizes": "512x512", "type": "image/png" },
+{ "purpose": "maskable", "src": "graphics/icon_s_192x192.png", "sizes": "192x192", "type": "image/png" },
+{ "purpose": "maskable", "src": "graphics/icon_s_512x512.png", "sizes": "512x512", "type": "image/png" }
+],
+"start_url": "/",
+"background_color": "#FFFFFF",
+"display": "standalone",
+"scope": "/",
+"orientation": "portrait"
+}

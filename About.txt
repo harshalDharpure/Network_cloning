@@ -1,0 +1,294 @@
+Develop a Progressive Web App Like Twitter & Instagram From Scratch! (In Just 7 Hours)
+
+Lesson 1
+-Having an Idea of a Social Network
+-Choosing Name
+-Choosing Title
+-Choosing Description
+-Choosing Slogans
+-Features of a Social Network
+-Sketching Pages
+
+Lesson 2
+-Choosing a Domain Name Registrar
+-Registering a Domain Name
+-Buying a Hosting Package
+-Setting up SSL Certificate
+
+Lesson 3
+-Setting up XAMPP Server
+-Setting up Text Editor
+-Uglifying CSS & Javascript
+-Uploading File Using Smarter Way
+
+Lesson 4
+-Designing Vectorized Logo & Icons
+
+Lesson 5
+-With or Without WWW
+-Setting up Htaccess
+
+Lesson 6
+-Designing the Social Network Layout for Mobiles 
+-Designing the Social Network Layout for Tablets
+-Designing the Social Network Layout for Laptops
+-Designing the Social Network Layout for Desktops
+
+Lesson 7
+-Header
+-Footer
+-Left Panel
+-Profile
+-Meow Poster
+-Posted Meow
+-Welcome Page
+-Sign Up Page
+-Sign In Page
+-Forgot Password Page
+-Notice Board & Loader
+
+Lesson 8
+-index.php
+-Splash Screen
+-Javascript
+-Sign Up Page Call Function
+-Sign In Page Call Function
+-Forgot Password Page Call Function
+
+Lesson 9
+-Sign Up Processing
+-MySQL Database
+-Setting Up PHPMailer
+-Creating An Email
+-Testing Sending Email
+-Sign In Processing
+-Forgot Password Processing
+-Hit Enter on Input Field to Proceed
+-Focus on Page Load
+
+Lesson 10
+-Ajax request, success & loader2
+-Setting up Home Page
+-Setting up Notifications Page
+-Setting up Settings Page
+-Setting up Discover Page
+-Setting up Profile Page
+-Three types of Pages
+-Home Button Call
+-Logo, Notification & Discover Buttons Call
+-Profile Button Call
+-Remaining Columns for "reg_users" Table
+-"meows" Table
+-"reports" & "pushnoti" Tables
+-Coding Profile Pic Upload
+-Coding Remove Profile Pic
+-Coding Updating Bio
+-Changing, Name, Username & Password
+-Coding Deactivation & Logout
+
+Lesson 11
+-Setting up catzby.com/username
+-Setting up Counts & Activation Link Resend
+-Setting up Settings Button Call
+-Setting up Follow/Unfollow
+-Setting up Block/Unblock
+-Setting up Profile Report
+-Setting up "htmlspecialchars"
+-Setting up Click on Tagged Users (@user), Hashtags (#hashtag) & Links
+-Setting up "Loading Followers Page" & "Loading Followings Page"
+-Setting up Share Button
+-Setting up "Meow Poster" & "NSAM Poster" for Own & Visiting Profiles
+
+Lesson 12
+-Backing Up
+-Buying A VPS
+-Creating A Project
+-Creating A Server
+-Generating Keys
+-Setting Up A SSH Client
+-Installing Apache, PHP, MySql
+-Securing MySql
+-Installing PHPMyAdmin
+-Changing PHPMyAdmin URL
+-Setting Root User Password For PHPMyAdmin
+-Accessing PHPMyAdmin & Importing Database
+-Installing Free SSL Certificate
+-Configuring Htaccess
+-Uploading Using SFTP
+-Configuring DNS Records
+-Edit emailll_sending.php
+-Redirecting Direct IP Access
+-Removing "STRICT_TRANS_TABLES"
+-Updating "upload_max_filesize"
+-Giving Access to "www-data"
+-Remvoving a PHPMyAdmin Error
+-Setting up FFMPEG
+
+Lesson 13
+-Posted Meows Manually
+-Setting up Meow Page
+-Fetching a Posted Meow
+-Fetching a Posted Meow - Top Portion
+-Fetching a Posted Meow - Report Profile
+-Fetching a Posted Meow - Deleting a Meow
+-Fetching a Posted Meow - Display Time of Posting
+-Fetching a Posted Meow - Getting Image's Width & Height
+-Fetching a Posted Meow - Making a Customized Video Player
+-Fetching a Posted Meow - Liking a Meow
+-Fetching a Posted Meow - Forwarding a Meow
+-Fetching a Posted Meow - Loading Likes
+-Fetching a Posted Meow - Loading Meow's Comments
+-Loading Home Page's Meows
+-Loading Profile & Discover Pages' Meows
+-Loading Hashtagged Meows
+-Setting up Search Page
+-Loading Searched Meows
+-Loading Searched Catzbies
+-Searching Meows & Catzbies
+-Suggesting Users to Tag
+-Previewing a Video
+-Posting NSAM / Meow / Comment to a Meow
+
+Lesson 14
+-Setting up Notification Circle
+-Fetching Notifications
+-Setting up Push Notifications
+-Receiving Push Notifications
+-Setting up History API (Back Button)
+-History API Scroll Restoration
+-History API (Back Button Calling "logocall" Function)
+-Auto Load on Scroll Down
+-Setting up Success Page After Signing Up
+-Load Home Page on Sign In Success
+-Replace Pages After Signing In
+-Making Left & Right Panels Sticky
+-Loading All the Icons Before the Page Loads
+-Setting up Error Pages
+-Installing the Application on the Device
+-Minifying CSS & Javascript
+-Setting Headers in Htaccess
+-Testing the Site's Loading Speed
+-Setting up "about.catzby.com"
+-Setting up Google Search Console Access
+-Setting up Google Analytics
+
+
+
+x-Tools-x
+
+Open Source Vector Icons
+https://remixicon.com
+
+Online Image Vectorizer
+https://www.vectorization.org/
+
+Vector Paint & SVG Editor
+https://vectorpaint.yaks.co.nz/
+
+XAMPP 1.8.1
+https://sourceforge.net/projects/xampp/files/XAMPP%20Windows/1.8.1/
+
+Notepad++
+https://notepad-plus-plus.org/downloads/
+
+CSS Minify
+https://www.uglifycss.com/
+
+Unminify JS, CSS, HTML
+https://unminify.com/
+
+Get $100 in credit over 60 days!
+https://m.do.co/c/bca184cafecb
+
+Node.js® is a JavaScript runtime built on Chrome's V8 JavaScript engine
+https://nodejs.org/en/
+
+FileZilla
+https://filezilla-project.org/
+
+CSS Sprites Generator
+https://www.toptal.com/developers/css/sprite-generator/
+
+The Easiest Way to Preview and Generate Open Graph Meta Tags
+https://www.opengraph.xyz/
+
+Google Hosted Libraries
+https://developers.google.com/speed/libraries
+
+RegExr: Learn, Build, & Test RegEx
+https://regexr.com/
+
+Parse User Agents
+https://developers.whatismybrowser.com/
+
+W3Schools Online Web Tutorials
+https://www.w3schools.com/
+
+PuTTYgen is a key generator tool for creating pairs of public and private SSH keys
+https://www.puttygen.com/
+
+TeraTerm is an opensource terminal emulator
+https://osdn.net/projects/ttssh2/releases/
+
+HTAccess Guide
+http://www.htaccess-guide.com/
+
+Firebase helps you build and run successful apps
+https://firebase.google.com/
+
+Service Workers
+https://frontendian.co/service-workers
+
+Analyzing URLS
+https://gtmetrix.com
+
+Google Search Console
+https://search.google.com/search-console/about
+
+Google Analytics
+https://analytics.google.com
+
+A Complete Guide to Flexbox
+https://css-tricks.com/snippets/css/a-guide-to-flexbox
+
+Gimp 2.8.14
+https://www.filepuma.com/download/gimp_2.8.14-6633/
+
+
+
+x-Credits-x
+
+Treating PHP Delsusions
+https://phpdelusions.net/
+
+Free Sound Effects
+https://www.soundjay.com/
+
+Walking in Thunderstorm at Night, Rain and Umbrella Ambience Sounds for Sleep and Study | 4k
+https://youtu.be/ww-LFK1-GRg
+
+Beautiful Free Images & Pictures 
+https://unsplash.com/
+
+Vector Graphics
+https://en.wikipedia.org/wiki/Vector_graphics
+
+Single Element CSS Spinners
+https://projects.lukehaas.me/css-loaders/
+
+GitHub - PHPMailer/PHPMailer: The classic email sending library for PHP
+https://github.com/phpmailer/phpmailer
+
+An object oriented PHP driver for FFMpeg binary 
+https://github.com/PHP-FFMpeg/PHP-FFMpeg
+
+Clouds Moving in the Sky - Free HD Video Clips & Stock Video Footage at Videezy!
+https://www.videezy.com/clouds/44755-clouds-moving-in-the-sky
+
+FastImage finds the size or type of an image given its uri by fetching as little as needed
+https://github.com/sdsykes/fastimage
+
+How to Know when an Element Gets Visible in the Screen During Scrolling
+https://usefulangle.com/post/113/javascript-detecting-element-visible-during-scroll
+
+
